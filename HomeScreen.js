@@ -15,6 +15,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { PokemonListItem } from "./Components/ PokemonListItem";
 
+//TODO Search functionality  clean up
+//TODO  clean up
+//TODO Separation of concerns
+
 export const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pokemonList, setPokemonList] = useState([]);
