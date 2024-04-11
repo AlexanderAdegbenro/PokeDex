@@ -21,9 +21,9 @@ git clone <https://github.com/AlexanderAdegbenro/PokeDex.git>
 cd PokeDex 
 npm install
 
-## Running the App
-[If using Expo]: expo start
+## Running the App 
 
+[If using Expo]: expo start
 [If using React Native CLI]:
 npx react-native run-android 
 npx react-native run-ios
