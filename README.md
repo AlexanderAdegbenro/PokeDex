@@ -42,6 +42,7 @@ This app uses the PokéAPI to fetch Pokémon data. For more information, visit P
 
 Author:
 Alexander Adegbenro
-[Simulator Screenshot - iPhone 15 Pro Max - 2024-04-11 at 15 59 43](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/c7c4ae0a-1256-4f51-b3f5-5f51541859a4)
-![Simulator Screenshot - iPhone 15 Pro Max - 2024-04-11 at 15 59 58](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/2cb2dff0-bb99-4e6e-a479-aca1f0a522a5)
-![Simulator Screenshot - iPhone 15 Pro Max - 2024-04-11 at 16 00 06](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/3b603654-dea7-470c-971c-2eaeda0dd125)
+
+![Screenshot 2024-04-11 at 4 17 06 PM](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/03889502-cad3-4004-9df8-17ba39014992)
+![Screenshot 2024-04-11 at 4 17 14 PM](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/a8bf03c4-7cb8-457b-a6c0-13a9ee755864)
+![Screenshot 2024-04-11 at 4 17 22 PM](https://github.com/AlexanderAdegbenro/PokeDex/assets/52863002/9464dc58-3a91-4c7d-ac9d-8aed3c5dbe62)
