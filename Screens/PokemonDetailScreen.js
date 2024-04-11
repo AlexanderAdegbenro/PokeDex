@@ -1,11 +1,7 @@
-import React from "react";
 import { View, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import BackButton from "./Components/BackButton";
-import PokemonDetails from "./Components/PokemonDetails";
+import PokemonDetails from "../Components/PokemonDetails";
 
 export const PokemonDetailScreen = ({ route }) => {
-  const navigation = useNavigation();
   const { pokemon } = route.params;
 
   return (

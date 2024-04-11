@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 
 export const PokemonListItem = ({ item, onPress }) => (
@@ -17,7 +16,7 @@ const capitalizeFirstLetter = (string) => {
 const styles = StyleSheet.create({
   touchable: {
     borderRadius: 10,
-    overflow: "hidden", 
+    overflow: "hidden",
   },
   pokemonContainer: {
     flexDirection: "row",

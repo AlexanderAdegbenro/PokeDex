@@ -28,14 +28,12 @@ export const fetchPokemons = async (offset) => {
       })
     );
     return fetchedPokemons;
-
-    
-   
   } catch (error) {
     console.error("Error fetching data: ", error);
     throw new Error("Failed to fetch data");
   }
 };
+
 export const fetchPokemonDetails = async (pokemonName) => {
   try {
     const response = await fetch(`${API_URL}pokemon/${pokemonName}`);

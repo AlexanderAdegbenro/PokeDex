@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
-import { fetchPokemonDetails } from '../Service/api';
-import BackButton from './BackButton'; 
-import { useNavigation } from '@react-navigation/native'; 
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import PropTypes from "prop-types";
+import BackButton from "./BackButton";
+import { useNavigation } from "@react-navigation/native";
+import { fetchPokemonDetails } from "../Service/api";
 
 const PokemonDetails = ({ pokemon }) => {
   const [details, setDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadPokemonDetails = async () => {
@@ -16,10 +25,10 @@ const PokemonDetails = ({ pokemon }) => {
       try {
         const pokemonDetails = await fetchPokemonDetails(pokemon);
         setDetails(pokemonDetails);
-        setError(null); 
+        setError(null);
       } catch (error) {
-        console.error('Error fetching Pokemon details:', error);
-        setError('Failed to fetch Pokemon details');
+        console.error("Error fetching Pokemon details:", error);
+        setError("Failed to fetch Pokemon details");
       } finally {
         setIsLoading(false);
       }
@@ -27,9 +36,19 @@ const PokemonDetails = ({ pokemon }) => {
     loadPokemonDetails();
   }, [pokemon]);
 
-  const handleRetry = () => {
-    setDetails(null);
+  const handleRetry = async () => {
+    setIsLoading(true);
     setError(null);
+    try {
+      const pokemonDetails = await fetchPokemonDetails(pokemon);
+      setDetails(pokemonDetails);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching Pokemon details:", error);
+      setError("Failed to fetch Pokemon details");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isLoading) {
@@ -37,18 +56,22 @@ const PokemonDetails = ({ pokemon }) => {
   }
 
   if (error) {
-    return renderError();
+    return renderError(handleRetry);
   }
 
   if (!details) {
-    return null; 
+    return null;
   }
 
   return renderPokemonDetails(details, navigation);
 };
 
+PokemonDetails.propTypes = {
+  pokemon: PropTypes.string.isRequired,
+};
+
 const capitalizeFirstLetter = (string) => {
-  if (!string) return ''; 
+  if (!string) return "";
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -58,9 +81,9 @@ const renderLoading = () => (
   </View>
 );
 
-const renderError = () => (
+const renderError = (handleRetry) => (
   <View style={styles.errorContainer}>
-    <Text style={styles.errorText}>{error}</Text>
+    <Text style={styles.errorText}>Failed to fetch Pokemon details</Text>
     <TouchableOpacity style={styles.retryButton} onPress={handleRetry}>
       <Text style={styles.retryButtonText}>Retry</Text>
     </TouchableOpacity>
@@ -70,8 +93,11 @@ const renderError = () => (
 const renderPokemonDetails = (details, navigation) => (
   <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
-      <BackButton onPress={() => navigation.goBack()} /> 
-      <Image style={styles.image} source={{ uri: details.sprites.front_default }} />
+      <BackButton onPress={() => navigation.goBack()} />
+      <Image
+        style={styles.image}
+        source={{ uri: details.sprites.front_default }}
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{capitalizeFirstLetter(details.name)}</Text>
         <View style={styles.infoRow}>
@@ -100,14 +126,13 @@ const renderPokemonDetails = (details, navigation) => (
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: '#FFFFFF',
     paddingHorizontal: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 50,
+    paddingBottom: 0,
   },
   image: {
     marginTop: 100,
@@ -116,67 +141,71 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     marginTop: 60,
-    alignItems: 'center',
+    alignItems: "center",
+    backgroundColor: "orange",
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    width: "100%",
+    flex: 0.5,
   },
   name: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
     letterSpacing: 2,
-    textAlign: 'center',
-    bottom:60
+    textAlign: "center",
+    bottom: 400,
   },
   infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 15,
-    width: '100%',
+    width: "100%",
   },
   label: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 25,
+    fontWeight: "bold",
   },
   value: {
     fontSize: 18,
   },
   abilitiesTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontWeight: "bold",
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 80,
   },
   ability: {
-    fontSize: 16,
+    fontSize: 22,
     marginBottom: 5,
   },
   loadingContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    alignItems: "center",
+    justifyContent: "center",
   },
   errorContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    alignItems: "center",
+    justifyContent: "center",
   },
   errorText: {
     fontSize: 20,
-    color: 'red',
+    color: "red",
     marginBottom: 20,
   },
   retryButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: '#E63F34',
+    backgroundColor: "#E63F34",
     borderRadius: 5,
     marginTop: 20,
   },
   retryButtonText: {
     fontSize: 18,
-    color: '#FFFFFF',
-    textAlign: 'center',
+    color: "#FFFFFF",
+    textAlign: "center",
   },
 });
 
