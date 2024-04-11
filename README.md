@@ -15,7 +15,7 @@ This is a Pokédex application built with React Native.
 1. Clone this repository:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/AlexanderAdegbenro/PokeDex.git>
 
 
 ## Install dependencies
@@ -42,3 +42,4 @@ This app uses the PokéAPI to fetch Pokémon data. For more information, visit P
 Authors
 Alexander Adegbenro
 
+```
